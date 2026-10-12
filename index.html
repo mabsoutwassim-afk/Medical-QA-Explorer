@@ -110,8 +110,21 @@
         }
 
         .btn-primary { background-color: var(--primary); color: white; }
+        .btn-primary:hover:not(:disabled) { background-color: var(--primary-hover); }
         .btn-primary:active { background-color: var(--primary-hover); }
         .btn-secondary { background-color: var(--success); color: white; display: none; }
+        .btn-secondary:hover:not(:disabled) { filter: brightness(0.9); }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        button:focus-visible,
+        .box.scrollable:focus-visible {
+            outline: 2px solid var(--primary-hover);
+            outline-offset: 2px;
+        }
     </style>
 </head>
 <body>
@@ -120,16 +133,16 @@
         <h1>Medical QA Explorer</h1>
         
         <div class="status-bar">
-            <span id="loading-status">Loading dataset...</span>
-            <span class="timer" id="timer-display">45s</span>
+            <span id="loading-status" aria-live="polite" aria-atomic="true">Loading dataset...</span>
+            <span class="timer" id="timer-display" aria-label="Time remaining">45s</span>
         </div>
 
-        <div class="box scrollable" id="question-container">
+        <div class="box scrollable" id="question-container" tabindex="0" role="region" aria-label="Question text">
             <div class="label">Question</div>
             <div id="question-text">Connecting to Hugging Face...</div>
         </div>
 
-        <div class="box scrollable" id="response-container">
+        <div class="box scrollable" id="response-container" tabindex="0" role="region" aria-label="Answer text" aria-live="polite" aria-atomic="true">
             <div class="label">Response</div>
             <div id="response-text"></div>
         </div>
